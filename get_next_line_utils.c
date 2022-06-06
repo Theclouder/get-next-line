@@ -6,7 +6,7 @@
 /*   By: vduchi <vduchi@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 14:15:48 by vduchi            #+#    #+#             */
-/*   Updated: 2022/06/06 12:28:11 by vduchi           ###   ########.fr       */
+/*   Updated: 2022/06/06 13:10:42 by vduchi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ char	*ft_strjoin(const char *s1, const char *s2)
 	}
 	str[count] = '\0';
 //	printf("S1: %p\n", s1);
-//	free((void *)s1);
+	free((void *)s1);
 	return (str);
 }
 
@@ -74,7 +74,7 @@ char	*ft_realloc(char *str, int addr, unsigned int len)
 
 	i = 0;
 //	printf("Realloc-> addr: %d, car at addr: %c, len %d, car at len %c\n", addr, str[addr], len, str[addr + len]);
-	tmp = (char *)malloc(sizeof(char) * len);
+	tmp = (char *)malloc(sizeof(char) * (len + 1));
 	while (str[i] != '\0')
 	{
 		tmp[i] = str[i + addr];

@@ -6,12 +6,12 @@
 /*   By: vduchi <vduchi@student.42barcelona.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 00:07:43 by vduchi            #+#    #+#             */
-/*   Updated: 2022/06/06 12:28:44 by vduchi           ###   ########.fr       */
+/*   Updated: 2022/06/06 13:27:54 by vduchi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#define BUFFER_SIZE 1
+#define BUFFER_SIZE 5
 /*
 char	*ft_strupd(char *chars, char *car)
 {
@@ -187,38 +187,32 @@ char	*ft_update_chars(char *chars, int *check)
 {
 	int		len;
 	int		start;
-//	char	*car;
 
 	len = -1;
 	start = 0;
 	if (!chars || !*check)
 	{
 		free(chars);
+		chars = NULL;
 		return (NULL);
 	}
 	else
 	{
 		while (chars[++len] != '\0')
 		{
-			if (chars[len] == '\n' && start == 0)
+			if (chars[len] == '\n' && start == 0 && chars[len + 1] != '\0')
 				start = len + 1;
 		}
-		/*
-		len = (int)(ft_strchr(chars, '\0') - car - 1);
-		printf("Len: %d\n", len);
-		chars = ft_realloc(chars, (int)(ft_strchr(chars, *car) - chars + 1), len);
-		printf("Chars: %s\n", chars);
-		car = NULL;
-		return (chars);
-		*/
-//		printf("Start: %d\n", start);
+		printf("Start: %d\n", start);
 		if (start == 0 || (len - start) == 0)
 		{
 			free(chars);
 			return (NULL);
 		}
-		chars =  ft_realloc(chars, start, len - start + 1);
+		chars = ft_realloc(chars, start, len - start);
 	}
+	//	Hola\nque\0
+	//	0123 4567 8
 	return (chars);
 }
 
@@ -230,6 +224,8 @@ char	*ft_get_next_line(char *chars, int *check)
 
 	i = -1;
 	len = 0;
+	if (!chars)
+		return (NULL);
 	while (chars[++i] != '\0')
 	{
 		if (chars[i] == '\n')
@@ -257,20 +253,24 @@ char	*ft_read_file(char *chars, int fd)
 	char	*buf;
 
 	c = 0;
+	buf = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	if (!buf)
+		return (NULL);
+	buf[0] = '\0';
 	while (1)
 	{
-		buf = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
-		if (!buf)
-			return (NULL);
-		buf[0] = '\0';
 		if (ft_strchr(buf, '\n'))
 			break ;
 		n_b = read(fd, buf, BUFFER_SIZE);
-		if (n_b <= 0)
+		if (n_b <= 0 && chars[0] != '\0')
 			break ;
+		else if (n_b <= 0 && buf[0] == '\0')
+		{
+			free(buf);
+			free(chars);
+			return (NULL);
+		}
 		chars = ft_strjoin(chars, buf);
-		free(buf);
-//		buf = NULL;
 	}
 	free(buf);
 	return (chars);
@@ -293,7 +293,6 @@ char	*get_next_line(int fd)
 		chars[0] = '\0';
 	}
 	chars = ft_read_file(chars, fd);
-//	printf("Chars: %p\n", chars);
 	if (!chars)
 	{
 		free(chars);
@@ -301,9 +300,15 @@ char	*get_next_line(int fd)
 	}
 	str = ft_get_next_line(chars, &check);
 	if (!str)
+	{
+		free(str);
+		free(chars);
 		return (NULL);
+	}
 //	printf("Str: %p\n", str);
 	chars = ft_update_chars(chars, &check);
+	if (!chars)
+		free(chars);
 	check = 0;
 //	free(chars);
 	return (str);
@@ -326,5 +331,8 @@ int	main(void)
 	free(str);
 	str = get_next_line(fd);
 	printf("String 4 is: %s", str);
+	free(str);
+	str = get_next_line(fd);
+	printf("String 5 is: %s", str);
 	return (0);
 }
