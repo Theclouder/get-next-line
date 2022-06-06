@@ -6,7 +6,7 @@
 /*   By: vduchi <vduchi@student.42barcelona.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 00:07:43 by vduchi            #+#    #+#             */
-/*   Updated: 2022/06/06 21:03:20 by vduchi           ###   ########.fr       */
+/*   Updated: 2022/06/06 22:25:52 by vduchi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,27 +125,3 @@ char	*get_next_line(int fd)
 		free(chars);
 	return (str);
 }
-/*
-int	main(void)
-{
-	int		fd;
-	char	*str;
-
-	fd = open("2_file.txt", O_RDONLY);
-	str = get_next_line(fd);
-	printf("String is: %s ->", str);
-	free(str);
-	str = get_next_line(fd);
-	printf("String 2 is: %s ->", str);
-	free(str);
-	str = get_next_line(fd);
-	printf("String 3 is: %s ->", str);
-	free(str);
-	str = get_next_line(fd);
-	printf("String 4 is: %s ->", str);
-	free(str);
-	str = get_next_line(fd);
-	printf("String 5 is: %s ->", str);
-	return (0);
-}
-*/
