@@ -6,7 +6,7 @@
 /*   By: vduchi <vduchi@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 14:15:48 by vduchi            #+#    #+#             */
-/*   Updated: 2022/06/06 13:10:42 by vduchi           ###   ########.fr       */
+/*   Updated: 2022/06/06 20:27:39 by vduchi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,16 +41,13 @@ char	*ft_strjoin(const char *s1, const char *s2)
 	int		count;
 	char	*str;
 
-	i = 0;
-	j = 0;
+	i = -1;
+	j = -1;
 	count = -1;
-	if (s1)
-	{
-		while (s1[i] != '\0')
-			i++;
-	}
-	while (s2[j] != '\0')
-		j++;
+	while (s1[++i] != '\0')
+		;
+	while (s2[++j] != '\0')
+		;
 	str = (char *)malloc(sizeof(char) * (i + j + 1));
 	if (!str)
 		return (NULL);
@@ -62,20 +59,18 @@ char	*ft_strjoin(const char *s1, const char *s2)
 			str[count] = s2[count - i];
 	}
 	str[count] = '\0';
-//	printf("S1: %p\n", s1);
 	free((void *)s1);
 	return (str);
 }
 
 char	*ft_realloc(char *str, int addr, unsigned int len)
 {
-	int		i;
-	char	*tmp;
+	unsigned int	i;
+	char			*tmp;
 
 	i = 0;
-//	printf("Realloc-> addr: %d, car at addr: %c, len %d, car at len %c\n", addr, str[addr], len, str[addr + len]);
 	tmp = (char *)malloc(sizeof(char) * (len + 1));
-	while (str[i] != '\0')
+	while (i < len)
 	{
 		tmp[i] = str[i + addr];
 		i++;
