@@ -6,7 +6,7 @@
 /*   By: vduchi <vduchi@student.42barcelona.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 00:07:43 by vduchi            #+#    #+#             */
-/*   Updated: 2022/06/06 22:25:52 by vduchi           ###   ########.fr       */
+/*   Updated: 2022/06/07 08:33:43 by vduchi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ static char	*ft_update_chars(char *chars, int *check)
 	if (!chars || !*check)
 	{
 		free(chars);
-		chars = NULL;
 		return (NULL);
 	}
 	else
@@ -101,7 +100,7 @@ char	*get_next_line(int fd)
 {
 	int			check;
 	char		*str;
-	static char	*chars;
+	static char	*chars = NULL;
 
 	check = 0;
 	if (fd < 0 || BUFFER_SIZE <= 0)

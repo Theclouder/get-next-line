@@ -6,7 +6,7 @@
 /*   By: vduchi <vduchi@student.42barcelona.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 00:05:33 by vduchi            #+#    #+#             */
-/*   Updated: 2022/06/06 19:40:52 by vduchi           ###   ########.fr       */
+/*   Updated: 2022/06/07 08:22:59 by vduchi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 # include <string.h>
 # include <unistd.h>
 # include <stdlib.h>
-# include <stdio.h>
 # include <fcntl.h>
+# include <stdio.h>
 
 char	*get_next_line(int fd);
 char	*ft_strchr(const char *s, int c);
