@@ -6,7 +6,7 @@
 /*   By: vduchi <vduchi@student.42barcelona.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 00:07:43 by vduchi            #+#    #+#             */
-/*   Updated: 2022/06/07 13:33:31 by vduchi           ###   ########.fr       */
+/*   Updated: 2022/06/07 16:32:12 by vduchi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,31 +100,26 @@ char	*get_next_line(int fd)
 {
 	int			check;
 	char		*str;
-	static char	**chars = NULL;
+	static char	*chars[1024];
 
 	check = 0;
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-//	printf("Chars %p\n", chars[fd]);
-	if (!chars || !chars[fd - 1])
+	if (!chars[fd - 1])
 	{
-//		printf("Before, fd %d\n", fd);
-		chars = ft_reserve_mem(chars, fd);
-//		printf("Here!\n");
-		if (!chars)
+		chars[fd - 1] = ft_strdup("");
+		if (!chars[fd - 1])
 			return (NULL);
 	}
-//	printf("Fd, %d\n", fd);
 	chars[fd - 1] = ft_read_file(chars[fd - 1], fd);
 	str = ft_get_next_line(chars[fd - 1], &check);
-//	printf("Str\n");
 	if (!str)
 	{
-		chars[fd - 1] = NULL;
+		free(chars[fd - 1]);
 		return (NULL);
 	}
 	chars[fd - 1] = ft_update_chars(chars[fd - 1], &check);
 	if (!chars[fd - 1])
-		chars[fd - 1] = NULL;
+		free(chars[fd - 1]);
 	return (str);
 }

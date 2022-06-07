@@ -6,7 +6,7 @@
 /*   By: vduchi <vduchi@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 14:15:48 by vduchi            #+#    #+#             */
-/*   Updated: 2022/06/07 13:33:56 by vduchi           ###   ########.fr       */
+/*   Updated: 2022/06/07 16:32:10 by vduchi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ char	*ft_realloc(char *str, int addr, unsigned int len)
 	return (tmp);
 }
 
-int	ft_strlen(char *str)
+int	ft_strlen(const char *str)
 {
 	int	i;
 
@@ -90,45 +90,20 @@ int	ft_strlen(char *str)
 	return (i);
 }
 
-char	**ft_reserve_mem(char **chars, int fd)
+char	*ft_strdup(const char *s1)
 {
 	int		i;
-	int		j;
-	char	**tmp;
+	char	*ptr;
 
-	i = -1;
-	tmp = (char **)malloc(sizeof(char *) * (fd + 1));
-	if (!tmp)
+	i = 0;
+	ptr = (char *)malloc(sizeof(char) * (ft_strlen(s1) + 1));
+	if (!ptr)
 		return (NULL);
-//	printf("Into cycle!\n");
-	while (++i < fd)
+	while (i < (int)ft_strlen(s1))
 	{
-		j = -1;
-		if (!chars || !chars[i])
-			tmp[i] = (char *)malloc(sizeof(char) * 1);
-		else
-		{
-//			printf("Chars: %s, Len: %d\n", chars[i], ft_strlen(chars[i]));
-			tmp[i] = (char *)malloc(sizeof(char) * (ft_strlen(chars[i]) + 1));
-			if (!tmp[i])
-				return (NULL);
-			while (chars[i][++j] != '\0')
-				tmp[i][j] = chars[i][j];
-			tmp[i][j] = '\0';
-//			printf("Tmp: %s, J: %d\n", tmp[i], j);
-		}
-//		printf("Len %d\n", len);
-		if (!tmp[i])
-			return (NULL);
-		if (i < fd && (i + 1) == fd)
-			tmp[i] = (char *)malloc(sizeof(char) * 1);
-		if (!tmp[i])
-			return (NULL);
-//		printf("Res: %s\n", tmp[i]);
+		ptr[i] = s1[i];
+		i++;
 	}
-	tmp[i] = NULL;
-//	i = -1;
-//	printf("Created\n");
-//	free(chars);
-	return (tmp);
+	ptr[i] = '\0';
+	return (ptr);
 }

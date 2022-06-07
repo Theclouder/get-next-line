@@ -6,7 +6,7 @@
 /*   By: vduchi <vduchi@student.42barcelona.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 00:05:33 by vduchi            #+#    #+#             */
-/*   Updated: 2022/06/07 10:18:58 by vduchi           ###   ########.fr       */
+/*   Updated: 2022/06/07 16:26:42 by vduchi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@
 # include <stdio.h>
 
 char	*get_next_line(int fd);
+char	*ft_strdup(const char *s1);
 char	*ft_strchr(const char *s, int c);
 char	*ft_strjoin(const char *s1, const char *s2);
 char	*ft_realloc(char *str, int addr, unsigned int len);
-char	**ft_reserve_mem(char **chars, int fd);
 
 #endif
