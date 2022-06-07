@@ -6,10 +6,12 @@
 /*   By: vduchi <vduchi@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 22:25:04 by vduchi            #+#    #+#             */
-/*   Updated: 2022/06/07 08:33:45 by vduchi           ###   ########.fr       */
+/*   Updated: 2022/06/07 08:53:59 by vduchi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
+#include <fcntl.h>
 #include "get_next_line.h"
 
 int	main(void)
