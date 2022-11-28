@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vduchi <vduchi@student.42barcelona.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 00:07:43 by vduchi            #+#    #+#             */
-/*   Updated: 2022/06/07 16:32:12 by vduchi           ###   ########.fr       */
+/*   Updated: 2022/11/28 20:47:06 by vduchi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,21 +105,21 @@ char	*get_next_line(int fd)
 	check = 0;
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	if (!chars[fd - 1])
+	if (!chars[fd])
 	{
-		chars[fd - 1] = ft_strdup("");
-		if (!chars[fd - 1])
+		chars[fd] = ft_strdup("");
+		if (!chars[fd])
 			return (NULL);
 	}
-	chars[fd - 1] = ft_read_file(chars[fd - 1], fd);
-	str = ft_get_next_line(chars[fd - 1], &check);
+	chars[fd] = ft_read_file(chars[fd], fd);
+	str = ft_get_next_line(chars[fd], &check);
 	if (!str)
 	{
-		free(chars[fd - 1]);
+		free(chars[fd]);
 		return (NULL);
 	}
-	chars[fd - 1] = ft_update_chars(chars[fd - 1], &check);
-	if (!chars[fd - 1])
-		free(chars[fd - 1]);
+	chars[fd] = ft_update_chars(chars[fd], &check);
+	if (!chars[fd])
+		free(chars[fd]);
 	return (str);
 }
